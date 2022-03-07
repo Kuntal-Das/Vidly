@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -24,14 +25,23 @@ namespace Vidly.Controllers
         public IActionResult Random()
         {
             Movie movie = new() { Name = "Dune 2021" };
+            var customers = new List<Customer> {
+                new Customer{Name="Customer 1"},
+                new Customer{Name="Customer 2"},
+            };
+
+            var vm = new RandomMovieViewModel()
+            {
+                Movie = movie,
+                Customers = customers
+            };
+            return View(vm);
 
             //might case prob later for parameter passing to the controller
             //ViewData["Movie"] = movie; 
             //ViewBag.Movie = movie;
             //return View();
 
-            //recommended 
-            return View(movie);
             //return new ViewResult();
 
             //return Content("Hellow World!");

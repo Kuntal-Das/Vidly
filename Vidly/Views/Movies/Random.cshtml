@@ -1,12 +1,13 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model Vidly.Models.Movie
+@model Vidly.ViewModels.RandomMovieViewModel
 @{
     ViewBag.Title = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>By passing it as a param in View() func : @(Model.Name)</h2>
+<h2>Using VM : @(Model.Movie.Name)</h2>
+@*<h2>By passing it as a param in View() func : @(Model.Name)</h2>*@
 @*//might case prob later*@
 @*<h2>Form ViewData   : @((ViewData["Movie"] as Movie).Name)</h2>*@
 @*//might case prob later*@
