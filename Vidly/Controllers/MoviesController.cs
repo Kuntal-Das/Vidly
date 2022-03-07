@@ -10,6 +10,26 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        public static MoviesViewModel moviesVM = new MoviesViewModel();
+
+        //GET /Movies
+        public IActionResult Index()
+        {
+            moviesVM.Movies = new()
+            {
+                new Movie { Id = 1, Name = "Trasncendence" },
+                new Movie { Id = 2, Name = "Arrival" }
+            };
+            return View(moviesVM);
+        }
+
+        //GET /Movies/Details
+        public IActionResult Details(int id)
+        {
+            var movie = moviesVM.Movies.SingleOrDefault(movie => movie.Id == id);
+            return View(movie);
+        }
+
         //Action Results:
         // ViewResult           -> View() 
         // PartialViewResult    -> PartialView()
@@ -22,56 +42,56 @@ namespace Vidly.Controllers
         // EmptyResult          
 
         //GET: Movies/Random
-        public IActionResult Random()
-        {
-            Movie movie = new() { Name = "Dune 2021" };
-            var customers = new List<Customer> {
-                new Customer{Name="Customer 1"},
-                new Customer{Name="Customer 2"},
-            };
+        //public IActionResult Random()
+        //{
+        //    Movie movie = new() { Name = "Dune 2021" };
+        //    var customers = new List<Customer> {
+        //        new Customer{Name="Customer 1"},
+        //        new Customer{Name="Customer 2"},
+        //    };
 
-            var vm = new RandomMovieViewModel()
-            {
-                Movie = movie,
-                Customers = customers
-            };
-            return View(vm);
+        //    var vm = new RandomMovieViewModel()
+        //    {
+        //        Movie = movie,
+        //        Customers = customers
+        //    };
+        //    return View(vm);
 
-            //might case prob later for parameter passing to the controller
-            //ViewData["Movie"] = movie; 
-            //ViewBag.Movie = movie;
-            //return View();
+        //    //might case prob later for parameter passing to the controller
+        //    //ViewData["Movie"] = movie; 
+        //    //ViewBag.Movie = movie;
+        //    //return View();
 
-            //return new ViewResult();
+        //    //return new ViewResult();
 
-            //return Content("Hellow World!");
+        //    //return Content("Hellow World!");
 
-            //return NotFound();
+        //    //return NotFound();
 
-            //return new EmptyResult();
+        //    //return new EmptyResult();
 
-            //return RedirectToAction("Index", "Home", new { page = 1, sortBy = "name" });
-        }
+        //    //return RedirectToAction("Index", "Home", new { page = 1, sortBy = "name" });
+        //}
 
-        //GET: movies/edit/{id}
-        public IActionResult Edit(int id)
-        {
-            return Content($"id = {id}");
-        }
+        ////GET: movies/edit/{id}
+        //public IActionResult Edit(int id)
+        //{
+        //    return Content($"id = {id}");
+        //}
 
-        public IActionResult Index(int pageIndex = 1, string sortBy = "name")
-        {
-            //if (pageIndex.HasValue) pageIndex = 1;
+        //public IActionResult Index(int pageIndex = 1, string sortBy = "name")
+        //{
+        //    //if (pageIndex.HasValue) pageIndex = 1;
 
-            //if (string.IsNullOrWhiteSpace(sortBy)) sortBy = "name";
+        //    //if (string.IsNullOrWhiteSpace(sortBy)) sortBy = "name";
 
-            return Content($"pageIndex={pageIndex}&sortBy={sortBy}");
-        }
+        //    return Content($"pageIndex={pageIndex}&sortBy={sortBy}");
+        //}
 
-        [Route("movies/released/{year:regex(2015|2016)}/{month:regex(\\d{{2}}):range(1,12)}")]
-        public IActionResult ByReleaseDate(int year, int month)
-        {
-            return Content($"{year}/{month}");
-        }
+        //[Route("movies/released/{year:regex(2015|2016)}/{month:regex(\\d{{2}}):range(1,12)}")]
+        //public IActionResult ByReleaseDate(int year, int month)
+        //{
+        //    return Content($"{year}/{month}");
+        //}
     }
 }
