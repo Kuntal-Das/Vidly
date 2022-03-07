@@ -34,5 +34,20 @@ namespace Vidly.Controllers
 
             return RedirectToAction("Index", "Home", new { page = 1, sortBy = "name" });
         }
+
+        //GET: movies/edit/{id}
+        public IActionResult Edit(int id)
+        {
+            return Content($"id = {id}");
+        }
+
+        public IActionResult Index(int pageIndex = 1, string sortBy = "name")
+        {
+            //if (pageIndex.HasValue) pageIndex = 1;
+
+            //if (string.IsNullOrWhiteSpace(sortBy)) sortBy = "name";
+
+            return Content($"pageIndex={pageIndex}&sortBy={sortBy}");
+        }
     }
 }
