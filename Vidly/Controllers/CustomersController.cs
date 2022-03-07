@@ -26,7 +26,7 @@ namespace Vidly.Controllers
         //GET /Customers/Details
         public IActionResult Details(int id)
         {
-            var customer = customersVM.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = customersVM.Customers.SingleOrDefault(cus => cus.Id == id);
             return View(customer);
         }
     }

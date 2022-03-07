@@ -20,7 +20,7 @@ else
             <tr>
                 <td>
                     <a asp-controller="Customers" asp-action="Details" asp-route-id=@customer.Id>@customer.Name</a>
-                    @*@Html.ActionLink(customer.Name, "Details", "Customers", new { id = 1 })*@
+                    @*@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id })*@
                 </td>
             </tr>
         }
