@@ -25,14 +25,22 @@ namespace Vidly.Controllers
         {
             Movie movie = new() { Name = "Dune 2021" };
 
-            //return View(movie);
+            //might case prob later for parameter passing to the controller
+            //ViewData["Movie"] = movie; 
+            //ViewBag.Movie = movie;
+            //return View();
+
+            //recommended 
+            return View(movie);
             //return new ViewResult();
+
             //return Content("Hellow World!");
+
             //return NotFound();
 
             //return new EmptyResult();
 
-            return RedirectToAction("Index", "Home", new { page = 1, sortBy = "name" });
+            //return RedirectToAction("Index", "Home", new { page = 1, sortBy = "name" });
         }
 
         //GET: movies/edit/{id}
