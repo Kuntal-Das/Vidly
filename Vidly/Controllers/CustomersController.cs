@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vidly.Data;
 using Vidly.Models;
 using Vidly.ViewModels;
 
@@ -10,23 +12,30 @@ namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        private ApplicationDbContext _context;
+        public CustomersController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+            base.Dispose(disposing);
+        }
+
         public static CustomersViewModel customersVM = new CustomersViewModel();
 
         //GET /Customers
         public IActionResult Index()
         {
-            customersVM.Customers = new()
-            {
-                new Customer { Id = 1, Name = "customer 1" },
-                new Customer { Id = 2, Name = "customer 2" }
-            };
+            customersVM.Customers = _context.Customers.Include(c => c.MembershipType).ToList();
             return View(customersVM);
         }
 
         //GET /Customers/Details
         public IActionResult Details(int id)
         {
-            var customer = customersVM.Customers.SingleOrDefault(cus => cus.Id == id);
+            var customer = _context.Customers.SingleOrDefault(cus => cus.Id == id);
             return View(customer);
         }
     }
