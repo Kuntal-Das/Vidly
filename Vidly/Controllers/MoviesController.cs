@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vidly.Data;
 using Vidly.Models;
 using Vidly.ViewModels;
 
@@ -11,22 +13,23 @@ namespace Vidly.Controllers
     public class MoviesController : Controller
     {
         public static MoviesViewModel moviesVM = new MoviesViewModel();
+        private ApplicationDbContext _context;
 
+        public MoviesController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         //GET /Movies
         public IActionResult Index()
         {
-            moviesVM.Movies = new()
-            {
-                new Movie { Id = 1, Name = "Trasncendence" },
-                new Movie { Id = 2, Name = "Arrival" }
-            };
+            moviesVM.Movies = _context.Movies.Include(m => m.Genere).ToList();
             return View(moviesVM);
         }
 
         //GET /Movies/Details
         public IActionResult Details(int id)
         {
-            var movie = moviesVM.Movies.SingleOrDefault(movie => movie.Id == id);
+            var movie = _context.Movies.Include(m => m.Genere).SingleOrDefault(movie => movie.Id == id);
             return View(movie);
         }
 

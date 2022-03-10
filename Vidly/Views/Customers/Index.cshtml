@@ -20,16 +20,18 @@ else
                 <th>Membership Type</th>
             </tr>
         </thead>
-        @foreach (var customer in Model.Customers)
-        {
-            @*<a asp-area="" asp-controller="Customers" asp-action="Details">Customers</a>*@
-            <tr>
-                <td>
-                    <a asp-controller="Customers" asp-action="Details" asp-route-id=@customer.Id>@customer.Name</a>
-                    @*@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id })*@
-                </td>
-                <td>@customer.MembershipType.Name</td>
-            </tr>
-        }
+        <tbody>
+            @foreach (var customer in Model.Customers)
+            {
+                @*<a asp-area="" asp-controller="Customers" asp-action="Details">Customers</a>*@
+                <tr>
+                    <td>
+                        <a asp-controller="Customers" asp-action="Details" asp-route-id=@customer.Id>@customer.Name</a>
+                        @*@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id })*@
+                    </td>
+                    <td>@customer.MembershipType.Name</td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
