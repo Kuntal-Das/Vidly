@@ -10,6 +10,6 @@
     <li>Membership Type: @Model.MembershipType.Name</li>
     @if (Model.DOB.HasValue)
     {
-        <li>Birth Date: @Model.DOB.Value.ToShortDateString()</li>
+        <li>Birth Date: @Model.DOB.Value.ToLongDateString()</li>
     }
 </ul>
