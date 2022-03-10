@@ -35,7 +35,9 @@ namespace Vidly.Controllers
         //GET /Customers/Details
         public IActionResult Details(int id)
         {
-            var customer = _context.Customers.SingleOrDefault(cus => cus.Id == id);
+            var customer = _context.Customers
+                .Include(c => c.MembershipType)
+                .SingleOrDefault(cus => cus.Id == id);
             return View(customer);
         }
     }
