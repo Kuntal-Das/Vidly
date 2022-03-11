@@ -28,7 +28,9 @@ namespace Vidly.Controllers
         //GET /Customers
         public IActionResult Index()
         {
-            customersVM.Customers = _context.Customers.Include(c => c.MembershipType).ToList();
+            customersVM.Customers = _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList();
             return View(customersVM);
         }
 
@@ -39,6 +41,17 @@ namespace Vidly.Controllers
                 .Include(c => c.MembershipType)
                 .SingleOrDefault(cus => cus.Id == id);
             return View(customer);
+        }
+
+
+        public IActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var newCustomerVM = new NewCustomerViewModel()
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View(newCustomerVM);
         }
     }
 }
