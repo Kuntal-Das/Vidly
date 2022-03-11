@@ -19,6 +19,12 @@ namespace Vidly.Controllers
         {
             _context = context;
         }
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+            base.Dispose(disposing);
+        }
+
         //GET /Movies
         public IActionResult Index()
         {
