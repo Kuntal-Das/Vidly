@@ -5,28 +5,34 @@
 }
 
 <h1>New Customer</h1>
-@using (@Html.BeginForm("Create", "Customer"))
-{
+@*@using (@Html.BeginForm("Create", "Customers"))
+    {*@
+<form asp-action="create" asp-controller="Customers" method="post">
     <div class="form-group">
-        <label>
-            Name : @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
-        </label>
+        <label asp-for="Customer.Name" class="control-label">Name</label>
+        <input asp-for="Customer.Name" class="form-control" />
+        @*@Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })*@
     </div>
     <div class="form-group">
-        <label>
-            Date of Birth : @Html.TextBoxFor(c => c.Customer.DOB, new { @class = "form-control" })
-        </label>
+        <label asp-for="Customer.DOB" class="control-label">Date of birth</label>
+        <input asp-for="Customer.DOB" class="form-control" />
+        @*<label>
+                Date of Birth : @Html.TextBoxFor(c => c.Customer.DOB, new { @class = "form-control" })
+            </label>*@
     </div>
     <div class="checkbox">
-        <label>
-            @Html.CheckBoxFor(c => c.Customer.IsSubscribedToNewsLetter) Is subscribed to newsletter
-        </label>
+        <input type="checkbox" asp-for="Customer.IsSubscribedToNewsLetter" />
+        <label asp-for="Customer.IsSubscribedToNewsLetter" class="control-label">Is subscribed to newsletter</label>
+        @*<label>
+                @Html.CheckBoxFor(c => c.Customer.IsSubscribedToNewsLetter) Is subscribed to newsletter
+            </label>*@
     </div>
     <div class="form-group">
         @*@Html.LabelFor(m => m.MembershipTypes)*@
-        <label for="MembershipTypes">
-            Membership Type :
-            @Html.DropDownListFor(c => c.Customer.DOB, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-select" })
-        </label>
+        <label asp-for="Customer.MembershipType">Membership type</label>
+        @Html.DropDownListFor(c => c.Customer.DOB, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-select" })
     </div>
-}
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+@*}*@

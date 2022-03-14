@@ -43,7 +43,7 @@ namespace Vidly.Controllers
             return View(customer);
         }
 
-
+        //GET /Customers/New
         public IActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
@@ -53,5 +53,16 @@ namespace Vidly.Controllers
             };
             return View(newCustomerVM);
         }
+
+        //POST /Customers/Create
+        [HttpPost]
+        public IActionResult Create(NewCustomerViewModel vm)
+        {
+            var customer = _context.Customers.Add(vm.Customer);
+
+            return View();
+            //return Details(customer);
+        }
+
     }
 }
