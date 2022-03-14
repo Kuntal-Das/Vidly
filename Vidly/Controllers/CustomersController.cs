@@ -23,14 +23,14 @@ namespace Vidly.Controllers
             base.Dispose(disposing);
         }
 
-        public static CustomersViewModel customersVM = new CustomersViewModel();
 
         //GET /Customers
         public IActionResult Index()
         {
-            customersVM.Customers = _context.Customers
-                .Include(c => c.MembershipType)
-                .ToList();
+            CustomersViewModel customersVM = new CustomersViewModel()
+            {
+                Customers = _context.Customers.Include(c => c.MembershipType).ToList()
+            };
             return View(customersVM);
         }
 
@@ -46,10 +46,9 @@ namespace Vidly.Controllers
         //GET /Customers/New
         public IActionResult New()
         {
-            var membershipTypes = _context.MembershipTypes.ToList();
             var newCustomerVM = new NewCustomerViewModel()
             {
-                MembershipTypes = membershipTypes
+                MembershipTypes = _context.MembershipTypes.ToList()
             };
             return View(newCustomerVM);
         }
@@ -58,10 +57,10 @@ namespace Vidly.Controllers
         [HttpPost]
         public IActionResult Create(NewCustomerViewModel vm)
         {
-            var customer = _context.Customers.Add(vm.Customer);
+            _context.Customers.Add(vm.Customer);
+            _context.SaveChanges();
 
-            return View();
-            //return Details(customer);
+            return RedirectToAction("Index");
         }
 
     }
