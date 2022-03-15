@@ -4,6 +4,7 @@ namespace Vidly.Models
 {
     public class Genere
     {
+        [Required]
         public byte Id { get; set; }
 
         [StringLength(255)]

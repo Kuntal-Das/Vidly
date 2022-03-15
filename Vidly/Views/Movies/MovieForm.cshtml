@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "MovieForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Vidly.ViewModels.MoviesFormViewModel
+
+@if (Model.Movie != null)
+{
+    <h2>Update Movie</h2>
+}
+else
+{
+    <h2>Add Movie</h2>
+}
+
+<form asp-action="Save" asp-controller="Movies" method="post">
+    <div class="form-group">
+        <label asp-for="Movie.Name" class="control-label">Name</label>
+        <input asp-for="Movie.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Movie.GenereId" class="control-label">Genere</label>
+        <select asp-for="Movie.GenereId"
+                asp-items="@(new SelectList(Model.Generes,"Id","Name"))"
+                class="form-select">
+            <option value="">Select Genere</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Movie.ReleaseDate" class="control-label">Release Date</label>
+        <input asp-for="Movie.ReleaseDate" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Movie.DateAdded" class="control-label">Date Added</label>
+        <input asp-for="Movie.DateAdded" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Movie.Stock" class="control-label">Stock</label>
+        <input asp-for="Movie.Stock" class="form-control" />
+    </div>
+
+
+    @Html.HiddenFor(m => m.Movie.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

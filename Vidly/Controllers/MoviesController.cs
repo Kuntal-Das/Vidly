@@ -39,6 +39,17 @@ namespace Vidly.Controllers
             return View(movie);
         }
 
+        public IActionResult New()
+        {
+            var vm = new MoviesFormViewModel()
+            {
+                Generes = _context.Generes.ToList()
+            };
+            return View("MovieForm", vm);
+        }
+
+
+
         //Action Results:
         // ViewResult           -> View() 
         // PartialViewResult    -> PartialView()
