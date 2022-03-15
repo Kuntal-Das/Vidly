@@ -40,28 +40,62 @@ namespace Vidly.Controllers
             var customer = _context.Customers
                 .Include(c => c.MembershipType)
                 .SingleOrDefault(cus => cus.Id == id);
-            return View(customer);
+
+            if (customer != null) return View(customer);
+
+            return NotFound();
         }
 
         //GET /Customers/New
         public IActionResult New()
         {
-            var newCustomerVM = new NewCustomerViewModel()
+            var CustomerFormVM = new CustomerFormViewModel()
             {
                 MembershipTypes = _context.MembershipTypes.ToList()
             };
-            return View(newCustomerVM);
+            return View("CustomerForm", CustomerFormVM);
         }
 
-        //POST /Customers/Create
+        //POST /Customers/Save
         [HttpPost]
-        public IActionResult Create(NewCustomerViewModel vm)
+        public IActionResult Save(CustomerFormViewModel vm)
         {
-            _context.Customers.Add(vm.Customer);
+            if (vm.Customer.Id == 0)
+            {
+                _context.Customers.Add(vm.Customer);
+            }
+            else
+            {
+                var customerInDb = _context.Customers.Single(c => c.Id == vm.Customer.Id);
+
+                //Mapper.Map(vm.Customer, customerInDb);
+
+                customerInDb.Name = vm.Customer.Name;
+                customerInDb.DOB = vm.Customer.DOB;
+                customerInDb.MembershipTypeId = vm.Customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsLetter = vm.Customer.IsSubscribedToNewsLetter;
+            }
+
+
             _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
+
+
+        public IActionResult Edit(int id)
+        {
+            var CustomerFormVM = new CustomerFormViewModel()
+            {
+                MembershipTypes = _context.MembershipTypes.ToList(),
+                Customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(cus => cus.Id == id)
+            };
+
+            if (CustomerFormVM.Customer != null) return View("CustomerForm", CustomerFormVM);
+
+            return NotFound();
+        }
+
 
     }
 }

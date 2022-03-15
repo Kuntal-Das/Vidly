@@ -6,6 +6,7 @@
     ViewData["Title"] = "Customers";
 }
 <h2>Customers</h2>
+<a asp-action="New" asp-controller="Customers" class="btn btn-secondary">New Customer</a>
 
 @if (!Model.Customers.Any())
 {
