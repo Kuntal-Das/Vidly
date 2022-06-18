@@ -51,29 +51,29 @@ namespace Vidly.Controllers
         {
             var CustomerFormVM = new CustomerFormViewModel()
             {
-                MembershipTypes = _context.MembershipTypes.ToList()
+                MembershipTypes = _context.MembershipTypes
             };
             return View("CustomerForm", CustomerFormVM);
         }
 
         //POST /Customers/Save
         [HttpPost]
-        public IActionResult Save(CustomerFormViewModel vm)
+        public IActionResult Save(CustomerFormViewModel customerVM)
         {
-            if (vm.Customer.Id == 0)
+            if (customerVM.Customer.Id == 0)
             {
-                _context.Customers.Add(vm.Customer);
+                _context.Customers.Add(customerVM.Customer);
             }
             else
             {
-                var customerInDb = _context.Customers.Single(c => c.Id == vm.Customer.Id);
+                var customerInDb = _context.Customers.Single(c => c.Id == customerVM.Customer.Id);
 
                 //Mapper.Map(vm.Customer, customerInDb);
 
-                customerInDb.Name = vm.Customer.Name;
-                customerInDb.DOB = vm.Customer.DOB;
-                customerInDb.MembershipTypeId = vm.Customer.MembershipTypeId;
-                customerInDb.IsSubscribedToNewsLetter = vm.Customer.IsSubscribedToNewsLetter;
+                customerInDb.Name = customerVM.Customer.Name;
+                customerInDb.DOB = customerVM.Customer.DOB;
+                customerInDb.MembershipTypeId = customerVM.Customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsLetter = customerVM.Customer.IsSubscribedToNewsLetter;
             }
 
 
@@ -81,7 +81,6 @@ namespace Vidly.Controllers
 
             return RedirectToAction("Index");
         }
-
 
         public IActionResult Edit(int id)
         {
