@@ -69,11 +69,17 @@ namespace Vidly.Controllers
                 var customerInDb = _context.Customers.Single(c => c.Id == customerVM.Customer.Id);
 
                 //Mapper.Map(vm.Customer, customerInDb);
+                if (customerInDb.Name != customerVM.Customer.Name)
+                    customerInDb.Name = customerVM.Customer.Name;
 
-                customerInDb.Name = customerVM.Customer.Name;
-                customerInDb.DOB = customerVM.Customer.DOB;
-                customerInDb.MembershipTypeId = customerVM.Customer.MembershipTypeId;
-                customerInDb.IsSubscribedToNewsLetter = customerVM.Customer.IsSubscribedToNewsLetter;
+                if (customerInDb.DOB != customerVM.Customer.DOB)
+                    customerInDb.DOB = customerVM.Customer.DOB;
+
+                if (customerInDb.MembershipTypeId != customerVM.Customer.MembershipTypeId)
+                    customerInDb.MembershipTypeId = customerVM.Customer.MembershipTypeId;
+
+                if (customerInDb.IsSubscribedToNewsLetter != customerVM.Customer.IsSubscribedToNewsLetter)
+                    customerInDb.IsSubscribedToNewsLetter = customerVM.Customer.IsSubscribedToNewsLetter;
             }
 
 
@@ -87,7 +93,9 @@ namespace Vidly.Controllers
             var CustomerFormVM = new CustomerFormViewModel()
             {
                 MembershipTypes = _context.MembershipTypes.ToList(),
-                Customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(cus => cus.Id == id)
+                Customer = _context.Customers
+                .Include(c => c.MembershipType)
+                .SingleOrDefault(cus => cus.Id == id)
             };
 
             if (CustomerFormVM.Customer != null) return View("CustomerForm", CustomerFormVM);

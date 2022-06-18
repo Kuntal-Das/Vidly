@@ -16,6 +16,7 @@ namespace Vidly.Models
         [Display(Name = "Membership Type")]
         public MembershipType MembershipType { get; set; }
 
+        [Required]
         public byte MembershipTypeId { get; set; }
 
         //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
