@@ -41,18 +41,58 @@ namespace Vidly.Controllers
 
         public IActionResult New()
         {
-            var vm = new MoviesFormViewModel()
+            var vm = new MovieFormViewModel()
             {
                 Generes = _context.Generes.ToList()
             };
             return View("MovieForm", vm);
         }
 
-        [HttpPost]
-        public IActionResult Save(MoviesFormViewModel moviesFormVM)
-        {
-            _context.Movies.Add(moviesFormVM.Movie);
 
+        public IActionResult Edit(int id)
+        {
+            MovieFormViewModel movieFormVm = new MovieFormViewModel()
+            {
+                Generes = _context.Generes,
+                Movie = _context.Movies
+                .Include(m => m.Genere)
+                .SingleOrDefault(m => m.Id == id)
+            };
+
+            if (movieFormVm.Movie != null)
+                return View("MovieForm", movieFormVm);
+
+            return NotFound();
+        }
+
+
+        [HttpPost]
+        public IActionResult Save(MovieFormViewModel moviesFormVM)
+        {
+            if (moviesFormVM.Movie.Id == 0)
+            {
+                _context.Movies.Add(moviesFormVM.Movie);
+            }
+            else
+            {
+                var MovieInDb = _context.Movies.Single(m => m.Id == moviesFormVM.Movie.Id);
+
+                if (MovieInDb.Name != moviesFormVM.Movie.Name)
+                    MovieInDb.Name = moviesFormVM.Movie.Name;
+
+                if (MovieInDb.ReleaseDate != moviesFormVM.Movie.ReleaseDate)
+                    MovieInDb.ReleaseDate = moviesFormVM.Movie.ReleaseDate;
+
+                if (MovieInDb.Stock != moviesFormVM.Movie.Stock)
+                    MovieInDb.Stock = moviesFormVM.Movie.Stock;
+
+                if (MovieInDb.GenereId != moviesFormVM.Movie.GenereId)
+                    MovieInDb.GenereId = moviesFormVM.Movie.GenereId;
+
+                if (MovieInDb.DateAdded != moviesFormVM.Movie.DateAdded)
+                    MovieInDb.DateAdded = moviesFormVM.Movie.DateAdded;
+
+            }
 
             _context.SaveChanges();
             return RedirectToAction("Index");

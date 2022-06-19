@@ -3,7 +3,7 @@
     ViewData["Title"] = "MovieForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Vidly.ViewModels.MoviesFormViewModel
+@model Vidly.ViewModels.MovieFormViewModel
 
 @if (Model.Movie != null)
 {
@@ -40,7 +40,6 @@ else
         <input asp-for="Movie.DateAdded" type="date" class="form-control" />
     </div>
 
-
-    @Html.HiddenFor(m => m.Movie.Id)
+    <input type="hidden" asp-for="Movie.Id"/>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
