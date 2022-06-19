@@ -48,6 +48,17 @@ namespace Vidly.Controllers
             return View("MovieForm", vm);
         }
 
+        [HttpPost]
+        public IActionResult Save(MoviesFormViewModel moviesFormVM)
+        {
+            _context.Movies.Add(moviesFormVM.Movie);
+
+
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
 
 
         //Action Results:
@@ -108,6 +119,7 @@ namespace Vidly.Controllers
         //    return Content($"pageIndex={pageIndex}&sortBy={sortBy}");
         //}
 
+        // custom Routing with Attribute Routing 
         //[Route("movies/released/{year:regex(2015|2016)}/{month:regex(\\d{{2}}):range(1,12)}")]
         //public IActionResult ByReleaseDate(int year, int month)
         //{

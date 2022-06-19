@@ -6,11 +6,13 @@
     ViewData["Title"] = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<h2>By passing it as a param in View() func : @(Model.Name)</h2>*@
-@*//might case prob later*@
-@*<h2>Form ViewData   : @((ViewData["Movie"] as Movie).Name)</h2>*@
-@*//might case prob later*@
-@*<h2>From ViewBag    : @(ViewBag.Movie.Name)</h2>*@
+@*
+    <h2>By passing it as a param in View() func : @(Model.Name)</h2>
+    //might case prob later
+    <h2>Form ViewData   : @((ViewData["Movie"] as Movie).Name)</h2>
+    //might case prob later
+    <h2>From ViewBag    : @(ViewBag.Movie.Name)</h2>
+*@
 
 @{
     var className = Model.Customers.Count > 0 ? "popular" : null;

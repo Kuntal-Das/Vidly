@@ -20,6 +20,10 @@ else
         <input asp-for="Movie.Name" class="form-control" />
     </div>
     <div class="form-group">
+        <label asp-for="Movie.ReleaseDate" class="control-label">Release Date</label>
+        <input asp-for="Movie.ReleaseDate" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
         <label asp-for="Movie.GenereId" class="control-label">Genere</label>
         <select asp-for="Movie.GenereId"
                 asp-items="@(new SelectList(Model.Generes,"Id","Name"))"
@@ -28,16 +32,12 @@ else
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="Movie.ReleaseDate" class="control-label">Release Date</label>
-        <input asp-for="Movie.ReleaseDate" type="date" class="form-control" />
+        <label asp-for="Movie.Stock" class="control-label">Stock</label>
+        <input asp-for="Movie.Stock" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="Movie.DateAdded" class="control-label">Date Added</label>
         <input asp-for="Movie.DateAdded" type="date" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Movie.Stock" class="control-label">Stock</label>
-        <input asp-for="Movie.Stock" class="form-control" />
     </div>
 
 
