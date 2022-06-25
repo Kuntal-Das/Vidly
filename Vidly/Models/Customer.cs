@@ -20,6 +20,7 @@ namespace Vidly.Models
         public byte MembershipTypeId { get; set; }
 
         //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Required]
         public DateTime? DOB { get; set; }
 
         public bool IsSubscribedToNewsLetter { get; set; }
