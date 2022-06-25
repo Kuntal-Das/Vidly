@@ -15,22 +15,26 @@ else
     <div class="form-group">
         <label asp-for="Customer.Name" class="control-label">Name</label>
         <input asp-for="Customer.Name" class="form-control" />
+        <span asp-validation-for="Customer.Name"></span>
     </div>
     <div class="form-group">
         <label asp-for="Customer.DOB" class="control-label">Date of birth</label>
         <input asp-for="Customer.DOB" class="form-control" type="date" />
+        <span asp-validation-for="Customer.DOB"></span>
     </div>
     <div class="form-group">
         <label asp-for="Customer.MembershipTypeId">Membership type</label>
         <select asp-for="Customer.MembershipTypeId"
                 asp-items="@(new SelectList(Model.MembershipTypes,"Id","Name"))"
                 class="form-select">
-            <option value="">Select Membership Type</option>
+            <option>Select Membership Type</option>
         </select>
+        <span asp-validation-for="Customer.MembershipTypeId"></span>
     </div>
     <div class="checkbox">
         <input type="checkbox" asp-for="Customer.IsSubscribedToNewsLetter" />
         <label asp-for="Customer.IsSubscribedToNewsLetter" class="control-label">Is subscribed to newsletter</label>
+        <span asp-validation-for="Customer.IsSubscribedToNewsLetter"></span>
     </div>
 
     @*@Html.HiddenFor(m => m.Customer.Id)*@
